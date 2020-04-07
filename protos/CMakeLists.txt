@@ -16,5 +16,5 @@ pkg_search_module(GRPC REQUIRED grpc)
 pkg_search_module(GRPCPP REQUIRED grpc++)
 list(APPEND GRPCPP_INCLUDE_DIRS ${GRPCPP_INCLUDE_DIRS})
 list(APPEND GRPCPP_LIBRARIES ${GRPCPP_LIBRARIES})
-
+list(APPEND GRPCPP_LIBRARIES "grpc++_reflection")
 target_link_libraries(helloworldpb ${PROTOBUF_LIBRARIES} ${GRPCPP_LIBRARIES})
