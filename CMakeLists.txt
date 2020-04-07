@@ -7,4 +7,5 @@ add_subdirectory(app)
 target_include_directories(helloworld PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/app")
 
 add_executable(hello main.cpp)
-target_link_libraries(hello PRIVATE pthread protodef helloworld)
+
+target_link_libraries(hello PRIVATE helloworldpb helloworld)
