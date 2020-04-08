@@ -98,22 +98,12 @@ Greeter::Service::Service() {
       Greeter_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Greeter::Service, ::helloworld::Request, ::helloworld::Reply>(
-          [](Greeter::Service* service,
-             ::grpc_impl::ServerContext* ctx,
-             const ::helloworld::Request* req,
-             ::helloworld::Reply* resp) {
-               return service->SayHello(ctx, req, resp);
-             }, this)));
+          std::mem_fn(&Greeter::Service::SayHello), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Greeter_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Greeter::Service, ::helloworld::Request, ::helloworld::Reply>(
-          [](Greeter::Service* service,
-             ::grpc_impl::ServerContext* ctx,
-             const ::helloworld::Request* req,
-             ::helloworld::Reply* resp) {
-               return service->SayBye(ctx, req, resp);
-             }, this)));
+          std::mem_fn(&Greeter::Service::SayBye), this)));
 }
 
 Greeter::Service::~Service() {

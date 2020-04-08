@@ -478,14 +478,7 @@ class Greeter final {
    public:
     WithStreamedUnaryMethod_SayHello() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler<
-          ::helloworld::Request, ::helloworld::Reply>(
-            [this](::grpc_impl::ServerContext* context,
-                   ::grpc_impl::ServerUnaryStreamer<
-                     ::helloworld::Request, ::helloworld::Reply>* streamer) {
-                       return this->StreamedSayHello(context,
-                         streamer);
-                  }));
+        new ::grpc::internal::StreamedUnaryHandler< ::helloworld::Request, ::helloworld::Reply>(std::bind(&WithStreamedUnaryMethod_SayHello<BaseClass>::StreamedSayHello, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_SayHello() override {
       BaseClassMustBeDerivedFromService(this);
@@ -505,14 +498,7 @@ class Greeter final {
    public:
     WithStreamedUnaryMethod_SayBye() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler<
-          ::helloworld::Request, ::helloworld::Reply>(
-            [this](::grpc_impl::ServerContext* context,
-                   ::grpc_impl::ServerUnaryStreamer<
-                     ::helloworld::Request, ::helloworld::Reply>* streamer) {
-                       return this->StreamedSayBye(context,
-                         streamer);
-                  }));
+        new ::grpc::internal::StreamedUnaryHandler< ::helloworld::Request, ::helloworld::Reply>(std::bind(&WithStreamedUnaryMethod_SayBye<BaseClass>::StreamedSayBye, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_SayBye() override {
       BaseClassMustBeDerivedFromService(this);

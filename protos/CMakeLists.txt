@@ -8,13 +8,21 @@ add_library(
     helloworld.grpc.pb.cc
 )
 
-include(FindProtobuf)
-find_package(Protobuf REQUIRED)
-find_package(PkgConfig REQUIRED)
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+#include(FindProtobuf)
+#find_package(Protobuf REQUIRED)
+#find_package(GRPC REQUIRED)
 
-pkg_search_module(GRPC REQUIRED grpc)
-pkg_search_module(GRPCPP REQUIRED grpc++)
-list(APPEND GRPCPP_INCLUDE_DIRS ${GRPCPP_INCLUDE_DIRS})
-list(APPEND GRPCPP_LIBRARIES ${GRPCPP_LIBRARIES})
-list(APPEND GRPCPP_LIBRARIES "grpc++_reflection")
-target_link_libraries(helloworldpb ${PROTOBUF_LIBRARIES} ${GRPCPP_LIBRARIES})
+#list(APPEND GRPC_LIBRARIES "grpc++_reflection")
+
+
+find_package(Protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
+
+set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
+set(_REFLECTION gRPC::grpc++_reflection)
+set(_GRPC_GRPCPP gRPC::grpc++)
+
+#target_link_libraries(helloworldpb ${PROTOBUF_LIBRARIES} ${GRPC_LIBRARIES})
+target_link_libraries(helloworldpb ${_REFLECTION} ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
+
